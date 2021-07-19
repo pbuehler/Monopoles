@@ -15,6 +15,13 @@ The workdir/macros directory contains root macros to analyse and plot the simula
 # ----------------------------------------------------------------------------
 # build container (as root user)
 singularity build --sandbox Monopoles Monopoles.def
+
+# use
+    bash> singularity shell --modifiable Monopoles
+#
+# and install aliroot (see instructions in Monopoles.def)
+#
+# convert container (as root user)
 singularity build --tmpdir=/data2/tmp Monopoles.sif Monopoles
 
 

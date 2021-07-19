@@ -43,7 +43,7 @@ EOF
   #pip install --upgrade pip
   #pip install alibuild --upgrade 
   
-  # with root5 and GEANT
+  # with root6 and GEANT
   #cd /mysoft/alice
   #aliBuild init AliPhysics@master
   #aliBuild build AliPhysics --defaults next-root6
