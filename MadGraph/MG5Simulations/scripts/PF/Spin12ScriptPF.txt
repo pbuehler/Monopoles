@@ -1,0 +1,4 @@
+import model mono_spinhalf
+generate a a > mm+ mm-
+output PF_spinhalf
+

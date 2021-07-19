@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# ATTENTION
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#
+#  do NOT use O2init 
+#  USE scl enable gcc-toolset-10 bash
+#
+# ATTENTION
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+now=`date`
+
+# some definitions
+mgpath=$MADGRAPH/MG5_aMC_v3_1_1
+tpath=$MADGRAPH/MG5Simulations
+
+# command line parameters
+process=$1
+mass=$3
+mcharge=$4
+
+# run MadGraph
+cd $tpath
+
+# Drell-Yan (DY) or Photon Fusion (PF) ========================================
+spath=$tpath/scripts/$process
+sname=$2
+
+# number of events
+nev=1000
+
+python3.9 $mgpath/bin/mg5_aMC $spath/${sname}.txt
+
+# replace maxparticles.inc on line 5 by full path
+rpath=$(echo `grep output $spath/${sname}.txt` | awk '{print $2}')
+sed -i "/include 'maxparticles.inc'/c\      include '$tpath/${rpath}/Source/maxparticles.inc'" ${rpath}/Source/genps.inc
+
+# do simulation
+sed -i "/set mass/c\set mass 4110000 $mass" $spath/${sname}2.txt
+sed -i "/set nevents/c\set nevents $nev" $spath/${sname}2.txt
+sed -i "/set gch/c\set gch 1 ${mcharge}" $spath/${sname}2.txt
+python3.9 $mgpath/bin/mg5_aMC $spath/${sname}2.txt;
+
+after=`date`
+echo $now" - "$after
+# ============================================================================

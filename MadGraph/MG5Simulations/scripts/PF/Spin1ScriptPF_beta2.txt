@@ -1,0 +1,15 @@
+launch PF_spinone_beta
+analysis=madanalysis5
+set run_card ebeam1 6500
+set ebeam2 6500
+set lpp1 1
+set lpp2 1
+set pdlabel lhapdf
+set lhaid 325100
+set nevents 100000
+set dynamical_scale_choice -1
+set fixed_couplings False
+set param_card mass 25 125
+set mass 4110000 6000
+set decay 4110000 0.000000e+0
+set gch 1 7.0

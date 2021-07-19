@@ -1,0 +1,4 @@
+import model mono_spinone
+generate a a > mm+ mm-
+output PF_spinone
+

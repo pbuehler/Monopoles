@@ -1,0 +1,4 @@
+import model mono_spinzero
+generate a a > mm+ mm-
+output PF_spinzero
+

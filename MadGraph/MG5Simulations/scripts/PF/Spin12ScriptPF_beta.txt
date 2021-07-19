@@ -1,0 +1,4 @@
+import model mono_spinhalf_beta
+generate a a > mm+ mm-
+output PF_spinhalf_beta
+
