@@ -1,0 +1,78 @@
+#!/usr/bin/bash
+
+#
+# EXAMPLE
+# . /${MonopolesDir}/scripts/.multisim 10 10 246392 1000 1 30 1000 -1.2 1.2
+#
+# range of array numbers
+export nsplit=$1
+export nevents=$2
+export runnum=$3
+export mass=$4
+export gch=$5
+
+# kinematic range
+export ekinmin=$6
+export ekinmax=$7
+export ymin=$8
+export ymax=$9
+
+export cc=${10}
+
+walltime=08:00:00
+
+# compute ptmin and ptmax
+etotmin=$(echo "$ekinmin + $mass" | bc -l)
+etotmax=$(echo "$ekinmax + $mass" | bc -l)
+
+aymin=$(echo "sqrt ( $ymin * $ymin )" | bc -l)
+aymax=$(echo "sqrt ( $ymax * $ymax )" | bc -l)
+if (( $(echo "$ymin <= 0.0" | bc -l) )) && (( $(echo "$ymax >= 0.0" | bc -l) ))
+then
+  kmin=0.0
+else
+  if (( $(echo "$aymin < $aymax" | bc -l) ))
+  then
+    kmin=$(echo "(1 - e ( 2 * $aymin )) / (1 + e ( 2 * $aymin ))" | bc -l)
+  else
+    kmin=$(echo "(1 - e ( 2 * $aymax )) / (1 + e ( 2 * $aymax ))" | bc -l)
+  fi
+fi
+if (( $(echo "$aymin > $aymax" | bc -l) ))
+then
+  kmax=$(echo "(1 - e ( 2 * $aymin )) / (1 + e ( 2 * $aymin ))" | bc -l)
+else
+  kmax=$(echo "(1 - e ( 2 * $aymax )) / (1 + e ( 2 * $aymax ))" | bc -l)
+fi
+
+ptmin2=$(echo "$etotmin * $etotmin * (1. - $kmax * $kmax) - $mass * $mass" | bc -l)
+if (( $(echo "$ptmin2 <= 0.0" | bc -l) ))
+then
+  ptmin=0.0
+else
+  ptmin=$(echo "sqrt ($ptmin2)" | bc -l)
+fi
+ptmax2=$(echo "$etotmax * $etotmax * (1. - $kmin * $kmin) - $mass * $mass" | bc -l)
+if (( $(echo "$ptmax2 <= 0.0" | bc -l) ))
+then
+  ptmax=0.0
+else
+  ptmax=$(echo "sqrt ($ptmax2)" | bc -l)
+fi
+
+if (( $(echo "$ptmin <= 0.0" | bc -l) )) && (( $(echo "$ptmax <= 0.0" | bc -l) ))
+then
+  echo "pt-range is empty: [$ptmin, $ptmax]"
+  exit
+fi
+
+echo "pt-range: [$ptmin, $ptmax] [GeV/c]"
+
+
+# initialisations
+export exe=${MonopolesDir}/scripts/.singlesim
+
+# submit jobs
+jobid=`sbatch --time ${walltime} --chdir ${MonopolesDir}/logs --array=1-$nsplit ${exe}`
+
+echo $jobid

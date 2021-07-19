@@ -1,0 +1,23 @@
+#!/usr/bin/bash
+
+t0=`date "+%s"`
+ho=`hostname`
+
+# output directory
+PD=${MonopolesDir}"/results"
+MD="m"`printf "%4.4d\n" $(( $mass ))`
+GD="g"`printf "%1.1d\n" $(( $gch ))`
+LD=`printf "%4.4d\n" $(( $cc ))`
+SD=${MD}/${GD}/${LD}
+_target=${PD}/${SD}
+echo ${_target}
+
+# go to working directory
+cd ${_target}
+
+# run analysis
+singularity run ${MonopolesDir}/../Monopoles.sif "results/"${SD} aliroot -n -b -l -q  "${MonopolesDir}/macros/SetParamTree.C(${mass},${gch},${cc},\"${PD}\",${withHists},${withTracks})" >> stdout 2>> stderr
+
+t1=`date "+%s"`
+d=`bc <<< "scale=2; ($t1-$t0)/60"`
+echo "Job was running on host "$ho" for "$d" minutes"

@@ -1,0 +1,61 @@
+#!/usr/bin/bash
+#SBATCH --time=06:00:00		# Walltime
+
+t0=`date "+%s"`
+ho=`hostname`
+
+# pdgcode
+ech=0
+pdgcode='6'${ech}${gch}`printf "%4.4d\n" $(( $mass ))`'3'
+
+# id
+id=$(echo "(((${mass}*10)+${gch})*1000+${cc})*${nsplit}+${SLURM_ARRAY_TASK_ID}" | bc -l)
+
+# output directory
+PD=${MonopolesDir}/results
+MD="m"`printf "%4.4d\n" $(( $mass ))`
+GD="g"`printf "%1.1d\n" $(( $gch ))`
+LD=`printf "%4.4d\n" $(( $cc ))`
+SD=${MD}/${GD}/${LD}/${SLURM_ARRAY_TASK_ID}
+_target=${PD}/${SD}
+echo ${_target}
+
+# go to working directory
+echo 'Creating '${_target}
+mkdir -p ${_target}
+cd ${_target}
+
+# check if OCDB files exist
+OCDBrec=${MonopolesDir}/ocdb/${runnum}/OCDBrec.root
+if [ -f "${OCDBrec}" ]; then
+  OCDBsim=${MonopolesDir}/ocdb/${runnum}/OCDBsim.root
+  if [ -f "${OCDBsim}" ]; then
+    ln -s ${MonopolesDir}/ocdb/${runnum}/OCDBrec.root .
+    ln -s ${MonopolesDir}/ocdb/${runnum}/OCDBsim.root .
+  else
+    echo "OCDBsim for ${runnum} is missing!"
+    exit
+  fi
+else
+  echo "OCDBrec for ${runnum} is missing!"
+  exit
+fi
+
+echo "Starting simulations with:"
+echo "  id:        "$id
+echo "  nEvents:   "$nevents
+echo "  pdg code:  "$pdgcode
+echo "  y-range:  ["$ymin", "$ymax"]"
+echo "  pt-range: ["$ptmin", "$ptmax"]"
+
+# run simulation and reconstruction
+singularity run ${MonopolesDir}/../Monopoles.sif ${SD} /mysoft/AliDPG/bin/aliroot_dpgsim.sh  --run ${runnum} --mode sim,rec --generator DPG:SingleParticleGun001 --ymin ${ymin} --ymax ${ymax} --ptmin ${ptmin} --ptmax ${ptmax} --phimin ${phimin} --phimax ${phimax} --pdg ${pdgcode} --uid ${id} --nevents ${nevents} --geant4 --geant4PhysList INCLXX >> stdout 2>> stderr
+
+# clean up, keep only relevant files
+GLOBIGNORE=AliESDfriends.root:AliESDs.root:TPC.RecPoints.root:galice.root:Kinematics.root:rec.log:sim.log:stderr:stdout
+rm -rv *
+unset GLOBIGNORE
+
+t1=`date "+%s"`
+d=`bc <<< "scale=2; ($t1-$t0)/60"`
+echo "Job was running on host "$ho" for "$d" minutes"

@@ -1,0 +1,104 @@
+# ------------------------------------------------------------------------------
+# simulation and analysis with Monopole generator
+#
+# .multisim
+#   nsplit
+#   nevents
+#   runnum
+#   mass
+#   gch
+#   ekinmin
+#   ekinmax
+#   ymin
+#   ymax
+#   label
+# e.g.
+#   . ${MonopolesDir}/scripts/.multisim 10 200 246392 1500 1 0 500 -0.05 0.05 0001
+#
+# for accepted values of runnum see ${MonopolesDir}/ocdb
+#
+# ------------------------------------------------------------------------------
+# job history
+#
+# simulations
+
+# testing
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 1 0  200 -0.05  0.05 1
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 1 0 1000 -0.95 -0.85 2
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 1 0 1000 -1.25 -1.15 3
+
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 7 0 1000 -0.05  0.05 1
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 7 0 1000 -0.95 -0.85 2
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 7 0 1000 -1.25 -1.15 3
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 7 0 3000 -0.05  0.05 4
+
+. ${MonopolesDir}/scripts/.multisim 5 200 246392 6000 1 0 1000 -0.05  0.05 1
+. ${MonopolesDir}/scripts/.multisim 5 200 246392 6000 1 0 1000 -0.95 -0.85 2
+. ${MonopolesDir}/scripts/.multisim 5 200 246392 6000 1 0 1000 -1.25 -1.15 3
+
+. ${MonopolesDir}/scripts/.multisim 5 200 246392 6000 7 0 1000 -0.05  0.05 1
+. ${MonopolesDir}/scripts/.multisim 5 200 246392 6000 7 0 1000 -0.95 -0.85 2
+. ${MonopolesDir}/scripts/.multisim 5 200 246392 6000 7 0 1000 -1.25 -1.15 3
+. ${MonopolesDir}/scripts/.multisim 5 200 246392 6000 7 0 3000 -0.05  0.05 4
+
+# varry magnetic charge
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 1 0 5000 -0.05  0.05 10
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 2 0 5000 -0.05  0.05 11
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 3 0 5000 -0.05  0.05 12
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 4 0 5000 -0.05  0.05 13
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 5 0 5000 -0.05  0.05 14
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 6 0 5000 -0.05  0.05 15
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 7 0 5000 -0.05  0.05 16
+
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 3    0  500 -0.05  0.05 17
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 3 4000 9000 -0.05  0.05 18
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 1   20  200 -0.05  0.05 19
+
+# varry monopole mass
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  250 1 0 5000 -0.05  0.05 21
+. ${MonopolesDir}/scripts/.multisim 5 200 246392 1000 1 0 5000 -0.05  0.05 22
+. ${MonopolesDir}/scripts/.multisim 5 200 246392 1500 1 0 5000 -0.05  0.05 23
+. ${MonopolesDir}/scripts/.multisim 5 200 246392 2000 1 0 5000 -0.05  0.05 24
+. ${MonopolesDir}/scripts/.multisim 5 200 246392 3000 1 0 5000 -0.05  0.05 25
+. ${MonopolesDir}/scripts/.multisim 5 200 246392 4000 1 0 5000 -0.05  0.05 26
+. ${MonopolesDir}/scripts/.multisim 5 200 246392 5000 1 0 5000 -0.05  0.05 27
+. ${MonopolesDir}/scripts/.multisim 5 200 246392 6000 1 0 5000 -0.05  0.05 28
+
+. ${MonopolesDir}/scripts/.multisim 5 200 246392 6000 1   20  200 -0.05  0.05 29
+
+# varry rapidity
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 1 0 5000 -0.15  -0.05 31
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 1 0 5000 -0.25  -0.15 32
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 1 0 5000 -0.35  -0.25 33
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 1 0 5000 -0.45  -0.35 34
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 1 0 5000 -0.55  -0.45 35
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 1 0 5000 -0.65  -0.55 36
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 1 0 5000 -0.75  -0.65 37
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 1 0 5000 -0.85  -0.75 38
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 1 0 5000 -0.95  -0.85 39
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 1 0 5000 -1.05  -0.95 40
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 1 0 5000 -1.15  -1.05 41
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 1 0 5000 -1.25  -1.15 42
+
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 1 0 1000 -1.35  -1.25 43
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 1 0 1000 -1.45  -1.35 44
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 1 0 1000 -1.55  -1.45 45
+
+# low monopole mass
+. ${MonopolesDir}/scripts/.multisim 5 200 246392   50 1 0 5000 -0.05   0.05 50
+. ${MonopolesDir}/scripts/.multisim 5 200 246392   20 1 0 5000 -0.05   0.05 51
+. ${MonopolesDir}/scripts/.multisim 5 200 246392   10 1 0 5000 -0.05   0.05 52
+. ${MonopolesDir}/scripts/.multisim 5 200 246392    5 1 0 5000 -0.05   0.05 53
+
+# g = 2 gD
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 2 0 500 -0.25  -0.15 60
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 2 0 500 -0.45  -0.35 61
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 2 0 500 -0.65  -0.55 62
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 2 0 500 -0.85  -0.75 63
+. ${MonopolesDir}/scripts/.multisim 5 200 246392  100 2 0 500 -1.05  -0.95 64
+. ${MonopolesDir}/scripts/.multisim 5 200 246392 6000 2 0 500 -0.25  -0.15 65
+. ${MonopolesDir}/scripts/.multisim 5 200 246392 6000 2 0 500 -0.45  -0.35 66
+. ${MonopolesDir}/scripts/.multisim 5 200 246392 6000 2 0 500 -0.65  -0.55 67
+. ${MonopolesDir}/scripts/.multisim 5 200 246392 6000 2 0 500 -0.85  -0.75 68
+. ${MonopolesDir}/scripts/.multisim 5 200 246392 6000 2 0 500 -1.05  -0.95 69
+

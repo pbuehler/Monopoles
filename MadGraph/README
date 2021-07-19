@@ -1,0 +1,181 @@
+# useful presentations
+https://cernbox.cern.ch/index.php/s/DlQ3T7yGM33Vet0
+https://cernbox.cern.ch/index.php/s/qYBQVZzIC9oSXk5
+
+# parameters
+MONOPOLES=/home/pbuehler/tmp/Monopoles
+LHAPDF=$MONOPOLES/LHAPDF
+MADGRAPH=$MONOPOLES/MadGraph
+
+# install LHAPDF
+cd $MONOPOLES
+mkdir LHAPDF
+cd $LHAPDF
+
+# download from https://lhapdf.hepforge.org/downloads/
+wget https://lhapdf.hepforge.org/downloads/?f=LHAPDF-6.3.0.tar.gz -O LHAPDF-6.3.0.tar.gz
+tar -xvzf LHAPDF-6.3.0.tar.gz
+cd LHAPDF-6.3.0
+./configure --prefix=$LHAPDF
+make
+make install
+
+# download PDF data files into $LHAPDF/share/LHAPDF und unpack there
+# for monopoles we need
+#   . NNPDF23_lo_as_0130_qed.tar.gz       for pp -> a -> m+m-
+#   . NNPDF31_nnlo_as_0118_luxqed.tar.gz  for aa -> m+m-
+cd $LHAPDF/share
+wget http://lhapdfsets.web.cern.ch/lhapdfsets/current/NNPDF23_lo_as_0130_qed.tar.gz -O- | tar xz -C $LHAPDF/share/LHAPDF
+wget http://lhapdfsets.web.cern.ch/lhapdfsets/current/NNPDF31_nnlo_as_0118_luxqed.tar.gz -O- | tar xz -C $LHAPDF/share/LHAPDF
+
+
+# install MadGraph
+cd $MONOPOLES
+mkdir MadGraph
+cd MadGraph
+wget https://launchpad.net/mg5amcnlo/3.0/3.1.x/+download/MG5_aMC_v3.1.1.tar.gz
+tar -xvzf MG5_aMC_v3.1.1.tar.gz
+
+# load the momopole models and convert them to python3
+git clone git@github.com:pbuehler/MG5Simulations.git
+cd MG5Simulations
+
+# these runs will fail because the models are not python3
+# however this is needed to download the models
+./.doone DY Spin0ScriptDY 1500 1
+./.doone DY Spin12ScriptDY 1500 1
+./.doone DY Spin1ScriptDY 1500 1
+./.doone DY Spin0ScriptDY_beta 1500 1
+./.doone DY Spin12ScriptDY_beta 1500 1
+./.doone DY Spin1ScriptDY_beta 1500 1
+
+# now do the conversion
+cd $MADGRAPH/MG5_aMC_v3_1_1
+python3.9 bin/mg5_aMC
+
+convert model /home/pbuehler/physics/projects/alice/Monopoles/MadGraph/MG5_aMC_v3_1_1/models/mono_spinhalf
+convert model /home/pbuehler/physics/projects/alice/Monopoles/MadGraph/MG5_aMC_v3_1_1/models/mono_spinhalf_beta
+convert model /home/pbuehler/physics/projects/alice/Monopoles/MadGraph/MG5_aMC_v3_1_1/models/mono_spinone
+convert model /home/pbuehler/physics/projects/alice/Monopoles/MadGraph/MG5_aMC_v3_1_1/models/mono_spinone_beta
+convert model /home/pbuehler/physics/projects/alice/Monopoles/MadGraph/MG5_aMC_v3_1_1/models/mono_spinzero
+convert model /home/pbuehler/physics/projects/alice/Monopoles/MadGraph/MG5_aMC_v3_1_1/models/mono_spinzero_beta
+
+# try again with the converted models
+cd $MADGRAPH/MG5Simulations
+./.doone DY Spin0ScriptDY 1500 1
+./.doone DY Spin12ScriptDY 1500 1
+./.doone DY Spin1ScriptDY 1500 1
+./.doone DY Spin0ScriptDY_beta 1500 1
+./.doone DY Spin12ScriptDY_beta 1500 1
+./.doone DY Spin1ScriptDY_beta 1500 1
+
+# perform simulations ========================================================
+./.doone ....
+./.doall
+
+# to plot results ============================================================
+O2init
+python3.6 analyzer.py
+
+# run definitions ============================================================
+run           gch       mmm
+
+run_01        1         100
+run_02        2         
+run_03        3
+run_04        4
+run_05        5
+run_06        6
+run_07        7
+run_08        1         250
+run_09        2
+run_10        3
+run_11        4
+run_12        5
+run_13        6
+run_14        7
+run_15        1        1000
+run_16        2
+run_17        3
+run_18        4
+run_19        5
+run_20        6
+run_21        7
+run_22        1        1500
+run_23        2
+run_24        3
+run_25        4
+run_26        5
+run_27        6
+run_28        7
+run_29        1        2000
+run_30        2
+run_31        3
+run_32        4
+run_33        5
+run_34        6
+run_35        7
+run_36        1        2500
+run_37        2
+run_38        3
+run_39        4
+run_40        5
+run_41        6
+run_42        7
+run_43        1        3000
+run_44        2
+run_45        3
+run_46        4
+run_47        5
+run_48        6
+run_49        7
+run_50        1        4000
+run_51        2
+run_52        3
+run_53        4
+run_54        5
+run_55        6
+run_56        7
+run_57        1        5000
+run_58        2
+run_59        3
+run_60        4
+run_61        5
+run_62        6
+run_63        7
+run_64        1        6000
+run_65        2
+run_66        3
+run_67        4
+run_68        5
+run_69        6
+run_70        7
+
+# ============================================================================
+# ALICE/GEANT simulations to perform =========================================
+
+# 10 masse values
+masses = [ 100., 250., 1000., 1500., 2000., 2500., 3000., 4000., 5000., 6000. ]
+
+# 4 eta values
+etas = [ 0., 0.8, 1.0, 1.2 ]
+
+# 7 gD values
+# 10 Ekin values per gD value
+Ekin \ gDs = [ 1., 2., 3., 4., 5., 6., 7. ] 
+
+20.            x
+50.                x
+90.                    x
+150.                       x
+220.                           x
+320.                               x
+450.                                   x
+
+
+
+--> 2800 simulations with 10000 events --> 28'000'000 events
+
+200 cores --> 140'000 events per core
+
+# ============================================================================

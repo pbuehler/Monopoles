@@ -1,0 +1,41 @@
+# ----------------------------------------------------------------------------
+# build container (as root user)
+singularity build --sandbox Monopoles Monopoles.def
+singularity build --tmpdir=/data2/tmp Monopoles.sif Monopoles
+
+
+# apply
+see e.g. https://twiki.cern.ch/twiki/bin/view/ALICE/AliceDPG
+
+  # prepare binding (mail)
+  export MonopolesDir=/home/pbuehler/physics/projects/alice/Monopoles/workdir
+  export SINGULARITY_BIND="${MonopolesDir}:/workdir"
+
+  # prepare binding (CLIP)
+  export MonopolesDir=/mnt/smi/alice/DRgen/workdir
+  export SINGULARITY_BIND="${MonopolesDir}:/workdir"
+  
+  
+  # run simulations
+  # run numbers
+  # LHC15o 246392 
+  rnum=246392
+  
+  # get OCDB - does not work on CLIP  
+  singularity run ${MonopolesDir}/../Monopoles.sif ocdb/${rnum} \
+  /mysoft/AliDPG/bin/aliroot_dpgsim.sh  --run ${rnum} --mode ocdb
+
+  # full simulations
+  singularity run ${MonopolesDir}/../Monopoles.sif results/0001 \
+  /mysoft/AliDPG/bin/aliroot_dpgsim.sh  --run ${rnum} --mode sim --generator DPG:SingleParticleGun001 --ymin -0.05 --ymax 0.05 --ptmin 30 --ptmax 1000 --pdg 60110003 --uid 1 --nevents 10 --geant4 --geant4PhysList INCLXX
+
+  # reconstruction  
+  singularity run ${MonopolesDir}/../Monopoles.sif results/0001 \
+  /mysoft/AliDPG/bin/aliroot_dpgsim.sh  --run ${rnum} --mode rec --generator DPG:SingleParticleGun001 --ymin -1.20 --ymax 1.20 --ptmin 30 --ptmax 1000 --pdg 60110003 --uid 1 --nevents 10 --geant4 --geant4PhysList INCLXX
+  
+  # full simulations and reconstruction  
+  singularity run ${MonopolesDir}/../Monopoles.sif results/0002 \
+  /mysoft/AliDPG/bin/aliroot_dpgsim.sh  --run ${rnum} --mode sim,rec --generator DPG:SingleParticleGun001 --ymin -1.20 --ymax 1.20 --ptmin 30 --ptmax 1000 --pdg 60110003 --uid 1 --nevents 10 --geant4 --geant4PhysList INCLXX
+  
+  
+# ----------------------------------------------------------------------------

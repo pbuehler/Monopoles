@@ -1,0 +1,12 @@
+# retrieve OCDBrec.root and OCDBsim.root
+
+# specify run number
+rnum=246392
+
+# create directory
+mkdir -p ${MONOPOLES}/workdir/ocdb/${rnum}
+
+# download OCDB[rec, sim].root
+singularity run ${MONOPOLES}/../Monopoles.sif ocdb/${rnum} \
+  /mysoft/AliDPG/bin/aliroot_dpgsim.sh  --run ${rnum} --mode ocdb
+

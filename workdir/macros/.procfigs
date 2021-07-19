@@ -1,0 +1,37 @@
+#!/bin/bash
+
+page=$1
+
+~/tools/.pspage ${page} ALICEAcceptance_0005_01_0053.ps ALICEAcceptance_0005_01_0053_p${page}.ps
+~/tools/.pspage ${page} ALICEAcceptance_0010_01_0052.ps ALICEAcceptance_0010_01_0052_p${page}.ps
+~/tools/.pspage ${page} ALICEAcceptance_0020_01_0051.ps ALICEAcceptance_0020_01_0051_p${page}.ps
+~/tools/.pspage ${page} ALICEAcceptance_0050_01_0050.ps ALICEAcceptance_0050_01_0050_p${page}.ps
+~/tools/.pspage ${page} ALICEAcceptance_0100_01_0010.ps ALICEAcceptance_0100_01_0010_p${page}.ps
+~/tools/.pspage ${page} ALICEAcceptance_0100_01_0031.ps ALICEAcceptance_0100_01_0031_p${page}.ps
+~/tools/.pspage ${page} ALICEAcceptance_0100_01_0032.ps ALICEAcceptance_0100_01_0032_p${page}.ps
+~/tools/.pspage ${page} ALICEAcceptance_0100_01_0033.ps ALICEAcceptance_0100_01_0033_p${page}.ps
+~/tools/.pspage ${page} ALICEAcceptance_0100_01_0034.ps ALICEAcceptance_0100_01_0034_p${page}.ps
+~/tools/.pspage ${page} ALICEAcceptance_0100_01_0035.ps ALICEAcceptance_0100_01_0035_p${page}.ps
+~/tools/.pspage ${page} ALICEAcceptance_0100_01_0036.ps ALICEAcceptance_0100_01_0036_p${page}.ps
+~/tools/.pspage ${page} ALICEAcceptance_0100_01_0037.ps ALICEAcceptance_0100_01_0037_p${page}.ps
+~/tools/.pspage ${page} ALICEAcceptance_0100_01_0038.ps ALICEAcceptance_0100_01_0038_p${page}.ps
+~/tools/.pspage ${page} ALICEAcceptance_0100_01_0039.ps ALICEAcceptance_0100_01_0039_p${page}.ps
+~/tools/.pspage ${page} ALICEAcceptance_0100_01_0040.ps ALICEAcceptance_0100_01_0040_p${page}.ps
+~/tools/.pspage ${page} ALICEAcceptance_0100_01_0041.ps ALICEAcceptance_0100_01_0041_p${page}.ps
+~/tools/.pspage ${page} ALICEAcceptance_0100_01_0042.ps ALICEAcceptance_0100_01_0042_p${page}.ps
+~/tools/.pspage ${page} ALICEAcceptance_0100_02_0011.ps ALICEAcceptance_0100_02_0011_p${page}.ps
+~/tools/.pspage ${page} ALICEAcceptance_0100_03_0012.ps ALICEAcceptance_0100_03_0012_p${page}.ps
+~/tools/.pspage ${page} ALICEAcceptance_0100_04_0013.ps ALICEAcceptance_0100_04_0013_p${page}.ps
+~/tools/.pspage ${page} ALICEAcceptance_0100_05_0014.ps ALICEAcceptance_0100_05_0014_p${page}.ps
+~/tools/.pspage ${page} ALICEAcceptance_0250_01_0021.ps ALICEAcceptance_0250_01_0021_p${page}.ps
+~/tools/.pspage ${page} ALICEAcceptance_1000_01_0022.ps ALICEAcceptance_1000_01_0022_p${page}.ps
+~/tools/.pspage ${page} ALICEAcceptance_1500_01_0023.ps ALICEAcceptance_1500_01_0023_p${page}.ps
+~/tools/.pspage ${page} ALICEAcceptance_2000_01_0024.ps ALICEAcceptance_2000_01_0024_p${page}.ps
+~/tools/.pspage ${page} ALICEAcceptance_3000_01_0025.ps ALICEAcceptance_3000_01_0025_p${page}.ps
+~/tools/.pspage ${page} ALICEAcceptance_4000_01_0026.ps ALICEAcceptance_4000_01_0026_p${page}.ps
+~/tools/.pspage ${page} ALICEAcceptance_5000_01_0027.ps ALICEAcceptance_5000_01_0027_p${page}.ps
+~/tools/.pspage ${page} ALICEAcceptance_6000_01_0028.ps ALICEAcceptance_6000_01_0028_p${page}.ps
+
+~/tools/.mps2eps  ALICEAcceptance_*_p${page}.ps
+~/tools/.meps2pdf ALICEAcceptance_*_p${page}.eps
+pdfunite ALICEAcceptance_*_p${page}.pdf ALICEAcceptance_p${page}.pdf
