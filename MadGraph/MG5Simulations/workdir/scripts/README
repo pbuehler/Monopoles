@@ -1,1 +1,56 @@
 # ---------------------------------------------------------------
+# Prerequisites
+
+. MADGRAPH=${MONOPOLES}/MadGraph
+. enable correct compiler suit
+  bash> scl enable devtoolset-7 bash
+
+# ---------------------------------------------------------------
+# simulate xx MM of given mass and charge with specific production process
+# .doone
+#
+#   process:
+#   sname: script name
+#     possible values:
+#
+#     Spin0ScriptDY
+#     Spin0ScriptDY_beta
+#     Spin12ScriptDY
+#     Spin12ScriptDY_beta
+#     Spin1ScriptDY
+#     Spin1ScriptDY_beta
+#     Spin0ScriptPF
+#     Spin0ScriptPF_beta
+#     Spin12ScriptPF
+#     Spin12ScriptPF_beta
+#     Spin1ScriptPF
+#     Spin1ScriptPF_beta
+#
+#   mass:
+#   mcharge:
+#
+# e.g.
+#   bash> ./.doone DY Spin0ScriptDY 30 1
+
+# Remarks:
+
+. the number of events (nev) is hard coded in .doone, make changes there
+. creates ${MADGRAPH}/MG5Simulations/`process`/
+
+# ---------------------------------------------------------------
+# simulate xx MM for a seriesof masses, charges, spins, and production processes
+# .doall
+#
+#   todo:
+#     1: simulate DY production process
+#     2: simulate PF production process
+#     3: simulate DY and PF production processes
+
+# Remarks:
+
+. list of masses, charges, and spin are hard coded in .doall, make changes there
+. the number of events (nev) is hard coded in .doall, make changes there
+. creates ${MADGRAPH}/MG5Simulations/`process`/
+
+# ---------------------------------------------------------------
+

@@ -4,7 +4,8 @@
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #
 #  do NOT use O2init 
-#  USE scl enable gcc-toolset-10 bash
+#  USE (scl enable gcc-toolset-10 bash)
+#      scl enable devtoolset-7 bash
 #
 # ATTENTION
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
