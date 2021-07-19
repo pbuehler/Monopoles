@@ -1,0 +1,52 @@
+# ---------------------------------------------------------------------------------
+# Analysis of the MM GEANT simulations
+SetParamTree.C
+
+SetParamTree (Double_t massIn, Int_t chargeIn, Int_t cc, char* dpath, Bool_t withHistos = kFALSE, Bool_t withTrackPoints = kFALSE)
+
+  massIn: mass of MM in GeV/c^2
+  chargeIn: magnetic charge (in gD) of MM
+  cc: as used for simulations
+  dpath: ${MonopolesDir}/results
+  withHistos: will save histogram of cluster amplitude distribution
+  withTrackPoints: will save lists of positions of clusters with large amplitude
+
+# e.g.
+  bash> aliroot -n -b -l -q  "${MonopolesDir}/macros/SetParamTree.C( 100,2,11,\"/workdir/results\", kTRUE, kTRUE)"
+  
+# Remarks 
+. can be run with ${MonopolesDir}/scripts/.multiana on slurm batch farms (see ${MonopolesDir}/scripts/README)
+. the result is saved in ${MonopolesDir}/results/m${mass}/g${gch}/${cc}/paramTree_${mass}_${gch}_${cc}.root
+
+# ---------------------------------------------------------------------------------
+# Plot MM GEANT simulation results
+PlotParamTree.C
+
+PlotParamTree (char* fname, Double_t rLim)
+  
+  fname: file created with SetParamTree.C
+  rLim: minimum radius (in cm) a track needs to reach to be accepted as detectable
+
+# e.g.
+  root> PlotParamTree("/data0/physics/projects/IMBA/data/Monopoles/workdir/results/m0100/g3/0017/paramTree_0100_3_0017.root", 230.)
+
+# Remarks 
+. Creates ps-file ALICEAcceptance_`mass`_`gch`_`cc`.ps"
+
+# ---------------------------------------------------------------------------------
+# Produce MM with Schwinger pir-production process
+# according to Acharya et al., arXiv:2106.11933v1 [hep-ex]
+SchwingerProduction.C
+
+SPGenerate(Int_t nev, Double_t mass)
+
+  nev: number of events to simulate
+  mass: mass of MM in GeV/c^2
+
+# e.g.
+  root> SPGenerate(1000000, 30.0)
+
+# Remarks 
+. Creates ps-file SchwingerProduction_`mass`.ps
+
+# ---------------------------------------------------------------------------------

@@ -1,0 +1,7 @@
+*.ps
+*.eps
+*.pdf
+*_C*
+Monopoles.sif
+centos8.sif/
+text/
