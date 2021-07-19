@@ -1,0 +1,105 @@
+Bootstrap: yum
+OSVersion: 7
+MirrorURL: http://mirror.centos.org/centos-%{OSVERSION}/%{OSVERSION}/os/$basearch/
+Include: yum
+
+%setup
+
+%files
+
+%environment
+  export LANG=C LC_ALL=C
+
+%post
+  # ----------------------------------------------------------------------------
+  # install relevant packages
+  cat << EOF > /etc/yum.repos.d/alice-system-deps.repo
+[alice-system-deps]
+name=alice-system-deps
+baseurl=https://s3.cern.ch/swift/v1/alibuild-repo/RPMS/o2-full-deps_x86-64/
+enabled=1
+gpgcheck=0
+EOF
+  yum update -y
+  yum install -y alice-o2-full-deps alibuild
+  
+  # ----------------------------------------------------------------------------
+  # get required python tools
+  curl -o /tmp/get-pip.py https://bootstrap.pypa.io/pip/2.7/get-pip.py
+  python /tmp/get-pip.py
+  pip install matplotlib==2.0.2 numpy certifi ipython==5.1.0 ipywidgets ipykernel notebook metakernel pyyaml
+
+  # ----------------------------------------------------------------------------
+  # buld AliRoot with alibuild
+  export ALIBUILD_WORK_DIR=/mysoft/alice/sw
+  echo 'export ALIBUILD_WORK_DIR=/mysoft/alice/sw' >>$SINGULARITY_ENVIRONMENT
+
+  mkdir /mysoft
+  chmod a+rw /mysoft
+  
+  # ************************************************************************
+  # do this as normal user
+  #mkdir -p /mysoft/alice
+  #pip install --upgrade pip
+  #pip install alibuild --upgrade 
+  
+  # with root5 and GEANT
+  #cd /mysoft/alice
+  #aliBuild init AliPhysics@master
+  #aliBuild build AliPhysics --defaults next-root6
+
+  
+  # ----------------------------------------------------------------------------
+  # AliDPG
+  #cd /mysoft
+  #git clone https://github.com/alisw/AliDPG.git
+  
+  # ATTENTION - modify /mysoft/AliDPG/MC/dpgsim.sh
+  #   comment the line with CheckTOF !
+
+  #
+  # ************************************************************************
+
+  # ----------------------------------------------------------------------------
+  # AliRoot directory
+  export WORKDIR=/workdir
+  echo 'export WORKDIR=/workdir' >>$SINGULARITY_ENVIRONMENT
+  mkdir -p ${WORKDIR}
+  
+  # AliDPG directory
+  export ALIDPG_ROOT=/mysoft/AliDPG
+  echo 'export ALIDPG_ROOT=/mysoft/AliDPG' >>$SINGULARITY_ENVIRONMENT
+
+%runscript
+  
+  # run simulations
+  cd $WORKDIR/$1
+  shift
+  alienv setenv AliPhysics/latest -c $@
+  
+%startscript
+
+%test
+
+%labels
+  Maintainer Paul Buehler, paul.buehler@oeaw.ac.at
+  Version v1.0
+  Date	2021-07-05
+  
+%help
+  This container provides AliRoot
+  
+  Build the container with
+    
+    singularity build Monopoles Monopoles.def
+  
+  Bind a path to /workdir
+  
+    e.g. export SINGULARITY_BIND="${AliRootworkdir}:/workdir"
+  
+  Start the container
+  
+    singularity shell --writable Monopoles
+    
+    singularity run Monopoles.sif "" aliroot
+
