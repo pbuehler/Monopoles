@@ -12,6 +12,15 @@ The workdir/scripts directory contains scripts to run the simulations on a slurm
 The workdir/macros directory contains root macros to analyse and plot the simulation results. See workdir/macros/README for instructions.
 
 
+# To have everything setup properly include the following in your ~/.bashrc
+
+export MONOPOLES=/home/pbuehler/physics/projects/alice/Monopoles
+export MADGRAPH=$MONOPOLES/MadGraph
+export LHAPDF=$MONOPOLES/LHAPDF
+export PATH=$PATH:$LHAPDF/bin
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LHAPDF/lib
+export PYTHONPATH=$PYTHONPATH:$LHAPDF/lib/python3.9/site-packages
+
 # ----------------------------------------------------------------------------
 # build container (as root user)
 singularity build --sandbox Monopoles Monopoles.def
