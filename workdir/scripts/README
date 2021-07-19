@@ -1,5 +1,17 @@
-# ------------------------------------------------------------------------------
-# simulation and analysis with Monopole generator
+# ---------------------------------------------------------------------------------
+# scripts to run GEANT simulations of MM on slurm batch farm
+
+.multisim and .singlesim are needed to run the simulations
+.multiana and .singleana are used to extract relevamt information from the generated files and create a root file with he result tree
+
+Prerequisits:
+
+1. export MonopolesDir=/mnt/smi/pbuehler/alice/Monopoles/workdir
+2. export SINGULARITY_BIND="${MonopolesDir}:/workdir"
+3. ${MonopolesDir}/../ containes the singularity container Monopoles.sif
+
+# ---------------------------------------------------------------------------------
+# Run simulations
 #
 # .multisim
 #   nsplit
@@ -11,16 +23,16 @@
 #   ekinmax
 #   ymin
 #   ymax
-#   label
+#   cc
 # e.g.
-#   . ${MonopolesDir}/scripts/.multisim 10 200 246392 1500 1 0 500 -0.05 0.05 0001
+#   bash> . ${MonopolesDir}/scripts/.multisim 10 200 246392 1500 1 0 500 -0.05 0.05 1
 #
 # for accepted values of runnum see ${MonopolesDir}/ocdb
-#
-# ------------------------------------------------------------------------------
+
+# Remarks
+. the results are saved to ${MonopolesDir}/results/m${mass}/g${gch}/${cc}/[1,2,3, .. ${nsplit}]/
+
 # job history
-#
-# simulations
 
 # testing
 . ${MonopolesDir}/scripts/.multisim 5 200 246392  100 1 0  200 -0.05  0.05 1
@@ -101,4 +113,21 @@
 . ${MonopolesDir}/scripts/.multisim 5 200 246392 6000 2 0 500 -0.65  -0.55 67
 . ${MonopolesDir}/scripts/.multisim 5 200 246392 6000 2 0 500 -0.85  -0.75 68
 . ${MonopolesDir}/scripts/.multisim 5 200 246392 6000 2 0 500 -1.05  -0.95 69
+
+# ---------------------------------------------------------------------------------
+# Run analysis
+#
+# .multiana
+#   mass
+#   gch
+#   cc
+# e.g.
+#   bash> . ${MonopolesDir}/scripts/.multiana 1500 1 1
+
+# Remarks
+
+. the analysis runs the macro SetParamTree.c (see ${MonopolesDir}/macros/README)
+. the results are saved in ${MonopolesDir}/results/m${mass}/g${gch}/${cc}/paramTree_${mass}_${gch}_${cc}.root
+
+# ---------------------------------------------------------------------------------
 

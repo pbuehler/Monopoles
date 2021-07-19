@@ -1,4 +1,18 @@
 # ----------------------------------------------------------------------------
+This "Monopoles" repository containes macros and scripts to run simulations of Magnetic Monopoles (MM) using MadGraph and GEANT.
+
+# Drell-Yan (DY) and Photon Fusion (PF)
+DY and PF are considered as production processes for MM. Both processes can be simulated with MadGraph. See MadGraph/README for instructions.
+
+# Simulation of MM transport through ALICE detector
+A dedicated singularity container is provided to run the GEANT simulation of MM in ALICE. The container is available on request to paul.buehler@oeaw.ac.at.
+
+The workdir/scripts directory contains scripts to run the simulations on a slurm batch farm. See workdir/scripts/README for instructions.
+
+The workdir/macros directory contains root macros to analyse and plot the simulation results. See workdir/macros/README for instructions.
+
+
+# ----------------------------------------------------------------------------
 # build container (as root user)
 singularity build --sandbox Monopoles Monopoles.def
 singularity build --tmpdir=/data2/tmp Monopoles.sif Monopoles
