@@ -39,14 +39,17 @@ EOF
   
   # ************************************************************************
   # do this as normal user
-  #mkdir -p /mysoft/alice
   #pip install --upgrade pip
   #pip install alibuild --upgrade 
   
   # with root6 and GEANT
+  #mkdir -p /mysoft/alice
   #cd /mysoft/alice
-  #aliBuild init AliPhysics@master
-  #aliBuild build AliPhysics --defaults next-root6
+  #aliBuild init AliPhysics,GEANT4_VMC
+  #cd GEANT4_VMC
+  #git checkout v5-3
+  #cd ..
+  #aliBuild build AliPhysics --defaults next-root6 -j6
 
   
   # ----------------------------------------------------------------------------
@@ -54,8 +57,10 @@ EOF
   #cd /mysoft
   #git clone https://github.com/alisw/AliDPG.git
   
+  # ATTENTION - modify /mysoft/AliDPG/MC/DetectorConfig.C
+  #  only activate PIPE, ITS, TPC in DetectorDefault()
   # ATTENTION - modify /mysoft/AliDPG/MC/dpgsim.sh
-  #   comment the line with CheckTOF !
+  #  remove line with CheckTOF.C, set checkTOF=1
 
   #
   # ************************************************************************

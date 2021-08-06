@@ -7,6 +7,7 @@
 #include "TLatex.h"
 #include "TCanvas.h"
 #include "TVector3.h"
+#include "TGraph.h"
 #include "TGraph2D.h"
 #include "TMultiGraph.h"
 

@@ -168,6 +168,7 @@ void SetParamTree (Double_t massIn, Int_t chargeIn, Int_t cc, char* dpath, Bool_
           if (withHistos) {
             hnc->Fill(cluster->GetMax());
           }
+          printf("cluster amplitude: %f\n", cluster->GetMax());
           if (cluster->GetMax() <= clusterAmplitudeLimit) {
             continue;
           }

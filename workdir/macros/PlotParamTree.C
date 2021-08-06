@@ -88,8 +88,11 @@ void PlotParamTree (char* fname, Double_t rLim)
 
   // tracks
   TVector3* trP = NULL;
-  TGraph2D *gr = NULL;
-  TH2D* hgr = NULL;
+  TGraph2D* gr2D = NULL;
+  TH2D* hgr2D = NULL;
+  
+  TGraph* gr1D = NULL;
+  TH1F* hgr1D = new TH1F("track", "track", 500, -250., 250.);
 
   // Now loop over all events
   Long64_t nev = tr->GetEntries();
@@ -110,7 +113,7 @@ void PlotParamTree (char* fname, Double_t rLim)
   Double_t etamean = 0.0;
   Double_t d2u;
   Double_t weight = 1./nev;
-  for (auto ii=0; ii<nev; ii++) {
+  for (auto ii=0; ii<5; ii++) {
     tr->GetEntry(ii);
     
     // update histogram
@@ -157,35 +160,62 @@ void PlotParamTree (char* fname, Double_t rLim)
       // fill TGraph
       auto nPoints = trackPoints->GetEntries();
       if (nPoints > 0) {
-        gr = new TGraph2D(nPoints);
-        hgr = new TH2D("track", "track", 500, -250., 250., 500, -250., 250.);
-        gr->SetHistogram(hgr);
+        
+        /* 
+        gr2D = new TGraph2D(nPoints);
+        hgr2D = new TH2D("track", "track", 500, -250., 250., 500, -250., 250.);
+        gr2D->SetHistogram(hgr2D);
         for (auto jj=0; jj<nPoints; jj++) {
           trP = (TVector3*)trackPoints->At(jj);
-          gr->SetPoint(jj, trP->Z(), trP->Y(), trP->X());
+          gr2D->SetPoint(jj, trP->Z(), trP->Y(), trP->X());
         }
         
-        gr->SetMarkerStyle(8);
-        gr->Draw("P");
+        gr2D->SetMarkerStyle(8);
+        gr2D->Draw("P");
+        
         gPad->Update();
-        gr->GetXaxis()->SetTitle("z [cm]");
-        gr->GetXaxis()->SetLabelSize(0.03);
-        gr->GetXaxis()->SetLabelOffset(5.0E-3);
-        gr->GetXaxis()->SetTitleSize(0.04);
-        gr->GetXaxis()->SetTitleOffset(1.5);
+        gr2D->GetXaxis()->SetTitle("z [cm]");
+        gr2D->GetXaxis()->SetLabelSize(0.03);
+        gr2D->GetXaxis()->SetLabelOffset(5.0E-3);
+        gr2D->GetXaxis()->SetTitleSize(0.04);
+        gr2D->GetXaxis()->SetTitleOffset(1.5);
 
-        gr->GetYaxis()->SetTitle("y [cm]");
-        gr->GetYaxis()->SetLabelSize(0.03);
-        gr->GetYaxis()->SetLabelOffset(2.0E-3);
-        gr->GetYaxis()->SetTitleSize(0.04);
-        gr->GetYaxis()->SetTitleOffset(1.5);
+        gr2D->GetYaxis()->SetTitle("y [cm]");
+        gr2D->GetYaxis()->SetLabelSize(0.03);
+        gr2D->GetYaxis()->SetLabelOffset(2.0E-3);
+        gr2D->GetYaxis()->SetTitleSize(0.04);
+        gr2D->GetYaxis()->SetTitleOffset(1.5);
 
-        gr->GetZaxis()->SetTitle("x [cm]");
-        gr->GetZaxis()->SetLabelSize(0.03);
-        gr->GetZaxis()->SetLabelOffset(5.0E-3);
-        gr->GetZaxis()->SetTitleSize(0.04);
-        gr->GetZaxis()->SetTitleOffset(1.2);
-        gr->GetZaxis()->SetLimits(-250., 250.);
+        gr2D->GetZaxis()->SetTitle("x [cm]");
+        gr2D->GetZaxis()->SetLabelSize(0.03);
+        gr2D->GetZaxis()->SetLabelOffset(5.0E-3);
+        gr2D->GetZaxis()->SetTitleSize(0.04);
+        gr2D->GetZaxis()->SetTitleOffset(1.2);
+        gr2D->GetZaxis()->SetLimits(-250., 250.);
+      */
+      
+        gr1D = new TGraph(nPoints);
+        //gr1D->SetHistogram(hgr1D);
+        for (auto jj=0; jj<nPoints; jj++) {
+          trP = (TVector3*)trackPoints->At(jj);
+          gr1D->SetPoint(jj, trP->Z(), trP->Pt());
+        }
+        gr1D->SetMarkerStyle(8);
+        gr1D->Draw("AP");
+      
+        gPad->Update();
+        gr1D->GetXaxis()->SetTitle("z [cm]");
+        //gr1D->GetXaxis()->SetLabelSize(0.03);
+        //gr1D->GetXaxis()->SetLabelOffset(0.01);
+        //gr1D->GetXaxis()->SetTitleSize(0.04);
+        ///gr1D->GetXaxis()->SetTitleOffset(1.0);
+
+        gr1D->GetYaxis()->SetTitle("r [cm]");
+        //gr1D->GetYaxis()->SetLabelSize(0.03);
+        //gr1D->GetYaxis()->SetLabelOffset(0.01);
+        //gr1D->GetYaxis()->SetTitleSize(0.04);
+        //gr1D->GetYaxis()->SetTitleOffset(1.0);
+        gr1D->GetYaxis()->SetRangeUser(0., 250.);
       }
 
       latex.SetTextSize(0.03);
@@ -199,8 +229,10 @@ void PlotParamTree (char* fname, Double_t rLim)
       
       // clean up
       if (nPoints > 0) {
-        delete gr;
-        delete hgr;
+        //delete hgr2D;
+        //delete gr2D;
+        //delete hgr1D;
+        delete gr1D;
       }
     }
   }

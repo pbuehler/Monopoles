@@ -2,7 +2,7 @@
 
 #
 # EXAMPLE
-# . /${MonopolesDir}/scripts/.multisim 10 10 246392 1000 1 30 1000 -1.2 1.2
+# . /${MonopolesDir}/scripts/.multisim 10 10 246392 1000 1 30 1000 -1.2 1.2 55
 #
 # range of array numbers
 export nsplit=$1
@@ -66,10 +66,9 @@ then
   exit
 fi
 
-echo "pt-range: [$ptmin, $ptmax] [GeV/c]"
-
-
 # initialisations
+export ptmin
+export ptmax
 export exe=${MonopolesDir}/scripts/.singlesim
 
 # submit jobs

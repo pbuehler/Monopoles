@@ -41,12 +41,15 @@ else
   exit
 fi
 
+phimin=0.
+phimax=360.
 echo "Starting simulations with:"
 echo "  id:        "$id
 echo "  nEvents:   "$nevents
 echo "  pdg code:  "$pdgcode
-echo "  y-range:  ["$ymin", "$ymax"]"
-echo "  pt-range: ["$ptmin", "$ptmax"]"
+echo "  y-range:   ["$ymin", "$ymax"]"
+echo "  pt-range:  ["$ptmin", "$ptmax"]"
+echo "  phi-range: ["$phimin", "$phimax"]"
 
 # run simulation and reconstruction
 singularity run ${MonopolesDir}/../Monopoles.sif ${SD} /mysoft/AliDPG/bin/aliroot_dpgsim.sh  --run ${runnum} --mode sim,rec --generator DPG:SingleParticleGun001 --ymin ${ymin} --ymax ${ymax} --ptmin ${ptmin} --ptmax ${ptmax} --phimin ${phimin} --phimax ${phimax} --pdg ${pdgcode} --uid ${id} --nevents ${nevents} --geant4 --geant4PhysList INCLXX >> stdout 2>> stderr

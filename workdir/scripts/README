@@ -129,5 +129,74 @@ Prerequisits:
 . the analysis runs the macro SetParamTree.c (see ${MonopolesDir}/macros/README)
 . the results are saved in ${MonopolesDir}/results/m${mass}/g${gch}/${cc}/paramTree_${mass}_${gch}_${cc}.root
 
+# . /${MonopolesDir}/scripts/.multiana  100 1 1
+# . /${MonopolesDir}/scripts/.multiana  100 1 2
+# . /${MonopolesDir}/scripts/.multiana  100 1 3
+#
+# . /${MonopolesDir}/scripts/.multiana  100 7 1
+# . /${MonopolesDir}/scripts/.multiana  100 7 2
+# . /${MonopolesDir}/scripts/.multiana  100 7 3
+# . /${MonopolesDir}/scripts/.multiana  100 7 4
+#
+# . /${MonopolesDir}/scripts/.multiana 6000 1 1
+# . /${MonopolesDir}/scripts/.multiana 6000 1 2
+# . /${MonopolesDir}/scripts/.multiana 6000 1 3
+#
+# . /${MonopolesDir}/scripts/.multiana 6000 7 1
+# . /${MonopolesDir}/scripts/.multiana 6000 7 2
+# . /${MonopolesDir}/scripts/.multiana 6000 7 3
+# . /${MonopolesDir}/scripts/.multiana 6000 7 4
+#
+# . /${MonopolesDir}/scripts/.multiana  100 1 10 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana  100 2 11 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana  100 3 12 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana  100 4 13 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana  100 5 14 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana  100 6 15 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana  100 7 16 kTRUE kTRUE
+#
+# . /${MonopolesDir}/scripts/.multiana  100 3 17 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana  100 3 18 kTRUE kTRUE
+#
+# . /${MonopolesDir}/scripts/.multiana  100 1 110 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana  100 2 111 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana  100 3 112 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana  100 4 113 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana  100 5 114 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana  100 6 115 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana  100 7 116 kTRUE kTRUE
+#
+# . /${MonopolesDir}/scripts/.multiana  250 1 21 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana 1000 1 22 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana 1500 1 23 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana 2000 1 24 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana 3000 1 25 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana 4000 1 26 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana 5000 1 27 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana 6000 1 28 kTRUE kTRUE
+#
+# . /${MonopolesDir}/scripts/.multiana 6000 1 29 kTRUE kTRUE
+#
+# . /${MonopolesDir}/scripts/.multiana  100 1 31 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana  100 1 32 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana  100 1 33 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana  100 1 34 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana  100 1 35 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana  100 1 36 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana  100 1 37 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana  100 1 38 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana  100 1 39 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana  100 1 40 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana  100 1 41 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana  100 1 42 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana  100 1 43 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana  100 1 44 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana  100 1 45 kTRUE kTRUE
+#
+# . /${MonopolesDir}/scripts/.multiana   50 1 50 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana   20 1 51 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana   10 1 52 kTRUE kTRUE
+# . /${MonopolesDir}/scripts/.multiana    5 1 53 kTRUE kTRUE
+
 # ---------------------------------------------------------------------------------
 
